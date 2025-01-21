@@ -10,6 +10,7 @@ public class FirebaseAuthHandler : MonoBehaviour
 {
     public TMP_InputField emailInputField;   // Email input field
     public TMP_InputField passwordInputField; // Password input field
+    public TMP_InputField repasswordInputField; // rePassword input field
     public Button registerButton;           // Register button
     public TMP_Text feedbackText;               // Feedback text area
 
@@ -30,11 +31,18 @@ public class FirebaseAuthHandler : MonoBehaviour
     {
         string email = emailInputField.text.Trim();
         string password = passwordInputField.text.Trim();
+        string repassword = repasswordInputField.text.Trim();
 
         // Validate input fields
-        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(repassword))
         {
             feedbackText.text = "Please enter both email and password.";
+            yield break;
+        }
+        
+        if (!password.Equals(repassword))
+        {
+            feedbackText.text = "Password does not match.";
             yield break;
         }
 
